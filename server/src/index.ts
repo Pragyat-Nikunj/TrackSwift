@@ -6,7 +6,9 @@ import cors from "cors";
 import { Server } from "socket.io";
 import { setupSocket } from "./sockets/socket";
 import authRoutes from "./routes/auth.routes";
-
+import vendorRoutes from "./routes/vendor.routes";
+import customerRoutes from "./routes/customer.routes";
+import deliveryRoutes from "./routes/delivery.routes";
 
 dotenv.config();
 const app = express();
@@ -19,12 +21,14 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
-
+app.use("/api/vendor", vendorRoutes);
+app.use("/api/customer", customerRoutes);
+app.use("/api/delivery", deliveryRoutes);
 
 mongoose
   .connect(`${process.env.MONGODB_URL}/${process.env.DB_NAME}`)
   .then(() => {
     console.log("MongoDB connected");
-    server.listen(process.env.PORT, () => console.log("Server running on port 5000"));
+    server.listen(process.env.PORT, () => console.log(`Server running on port ${process.env.PORT}`));
   })
   .catch((err) => console.error(err));

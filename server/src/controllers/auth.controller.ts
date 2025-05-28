@@ -34,6 +34,9 @@ export const login = async (req: Request, res: Response) => {
     if (!isMatch)
       return res.status(400).json({ message: "Invalid credentials" });
 
+    // Log the user's role before creating the token
+    console.log(`User role for ${user.email}: ${user.role}`);
+
     const jwtSecret = process.env.JWT_SECRET!;
     const jwtExpiresIn = process.env.JWT_EXPIRES_IN ?? "7d"; // fallback if undefined
 
@@ -48,6 +51,7 @@ export const login = async (req: Request, res: Response) => {
       user: { name: user.name, role: user.role, id: user._id },
     });
   } catch (err) {
+    console.error("Login error:", err); // Added error logging for more details
     res.status(500).json({ message: "Login failed" });
   }
 };
