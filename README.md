@@ -118,5 +118,3 @@ The platform utilizes Socket.IO for real-time communication to facilitate order 
 * Enhance the customer order details view.
 * Implement proper error handling and user feedback mechanisms.
 * Add unit and integration tests.
-* Secure WebSocket connections with JWT authentication.
-

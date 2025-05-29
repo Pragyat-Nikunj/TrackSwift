@@ -1,8 +1,8 @@
+// server/socket.ts
 import { Server } from "socket.io";
 import { Server as HTTPServer } from "http";
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET || "YOUR_SUPER_SECRET_JWT_KEY_HERE"; 
 const activeSimulations = new Map<string, NodeJS.Timeout>();
 const simulatedLocations = new Map<string, { lat: number; lng: number }>();
 
@@ -22,11 +22,15 @@ export function createSocketServer(httpServer: HTTPServer) {
 
   io.use((socket, next) => {
     const token = socket.handshake.auth?.token || socket.handshake.headers?.authorization?.split(" ")[1];
+    
     if (!token) {
       return next(new Error("Authentication error: No token provided"));
     }
+
     try {
-      const decoded = jwt.verify(token, JWT_SECRET);
+      const jwtSecret = process.env.JWT_SECRET!; 
+      const decoded = jwt.verify(token, jwtSecret);
+      
       (socket as any).user = decoded;
       next();
     } catch (err) {
@@ -38,7 +42,6 @@ export function createSocketServer(httpServer: HTTPServer) {
     console.log("Socket connected:", socket.id, "User:", (socket as any).user?.id);
 
     socket.on("join-order", (orderId: string) => {
-      console.log("--- SERVER RECEIVED JOIN-ORDER EVENT ---", orderId);
       console.log(`Socket ${socket.id} joining order room: ${orderId}`);
       socket.join(orderId);
 
@@ -61,7 +64,7 @@ export function createSocketServer(httpServer: HTTPServer) {
     });
 
     socket.on("location-update", ({ orderId, lat, lng }) => {
-      io.to(orderId).emit("location-update", { lat, lng }); 
+      io.to(orderId).emit("location-update", { lat, lng }); // This is for if a real delivery app sends updates
     });
 
     socket.on("disconnect", () => {
