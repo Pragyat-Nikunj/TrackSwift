@@ -15,7 +15,6 @@ interface Location {
 }
 
 const TrackPage = () => {
-  // Assuming you get orderId from router or props
   const orderId = "order123";
   const customerLocation: Location = { lat: 23.7965, lng: 86.4356 };
 
@@ -69,7 +68,7 @@ const TrackPage = () => {
   return (
     <div style={{ height: "100vh", width: "100vw" }}>
       {isClient && leaflet && (
-        <MapContainer center={customerLocation} zoom={13}>
+        <MapContainer center={customerLocation} zoom={13} style={{ height: "100vh", width: "100vw" }}>
           <TileLayer
             url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">carto</a>'
