@@ -51,12 +51,12 @@ This project is a full-stack e-commerce platform focused on efficient order mana
 
 2.  **Install backend dependencies:**
     ```bash
-    cd backend
+    cd server
     npm install
     ```
 
 3.  **Configure backend environment variables:**
-    * Create a `.env` file in the `backend` directory.
+    * Create a `.env` file in the `server` directory.
     * Add the following (replace with your actual values):
         ```
         PORT=5000
@@ -82,7 +82,7 @@ This project is a full-stack e-commerce platform focused on efficient order mana
 6.  **Run the frontend development server:**
     ```bash
     npm run dev
-
+    # Or yarn dev, pnpm dev, depending on your package manager
     ```
 
     The frontend should be accessible at `http://localhost:3000` (or another port if specified).
