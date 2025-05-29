@@ -3,19 +3,17 @@ import http from "http";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
-import { Server } from "socket.io";
-import { setupSocket } from "./sockets/socket";
+import { createSocketServer } from "./sockets/socket";
 import authRoutes from "./routes/auth.routes";
 import vendorRoutes from "./routes/vendor.routes";
 import customerRoutes from "./routes/customer.routes";
 import deliveryRoutes from "./routes/delivery.routes";
+import { log } from "console";
 
 dotenv.config();
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server, { cors: { origin: "*" } });
-
-setupSocket(io);
+const io = createSocketServer(server); 
 
 app.use(cors());
 app.use(express.json());
