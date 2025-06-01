@@ -12,7 +12,7 @@ export function connectSocket(token: string): Socket {
     return socketInstance;
   }
 
-  socketInstance = io("http://localhost:5000", {
+  socketInstance = io("https://trackswift-nbuf.onrender.com", {
     auth: { token },  // send JWT token for authentication 
   });
 
