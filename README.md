@@ -4,6 +4,12 @@
 
 This project is a full-stack e-commerce platform focused on efficient order management and providing customers with real-time tracking capabilities. It features distinct dashboards for different user roles: Customers, Vendors, and Delivery Partners, each tailored to their specific interactions within the order fulfillment process. The platform leverages modern web technologies to deliver a seamless and responsive user experience.
 
+## Live Demo
+
+🚀 TrackSwift is live!
+Check out the deployed application here:
+🔗 https://track-swift-omega.vercel.app/
+
 ## Key Features
 
 * **User Authentication:** Secure signup and login functionality for Customers, Vendors, and Delivery Partners using JWT (JSON Web Tokens).
