@@ -70,3 +70,18 @@ export async function trackOrder(req: AuthRequest, res: Response) {
     res.status(500).json({ success: false, message: "Failed to track order" });
   }
 }
+
+export async function getAllCustomerOrders(req: AuthRequest, res: Response) {
+  try {
+    const customerId = req.user.id;
+
+    const orders = await Order.find({ customerId })
+      .populate("vendorId", "name") 
+      .populate("deliveryPartnerId", "name"); 
+
+    res.json({ success: true, orders });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Failed to fetch customer orders" });
+  }
+}
