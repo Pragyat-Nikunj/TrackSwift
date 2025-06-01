@@ -9,7 +9,7 @@ import vendorRoutes from "./routes/vendor.routes";
 import customerRoutes from "./routes/customer.routes";
 import deliveryRoutes from "./routes/delivery.routes";
 import { log } from "console";
-
+import path from "path";
 dotenv.config();
 const app = express();
 const server = http.createServer(app);
@@ -22,6 +22,14 @@ app.use("/api/auth", authRoutes);
 app.use("/api/vendor", vendorRoutes);
 app.use("/api/customer", customerRoutes);
 app.use("/api/delivery", deliveryRoutes);
+
+const clientBuildPath = path.join(__dirname, "../../client/out");
+app.use(express.static(clientBuildPath));
+
+
+app.get("*", (_, res) => {
+  res.sendFile(path.join(clientBuildPath, "index.html"));
+});
 
 mongoose
   .connect(`${process.env.MONGODB_URL}/${process.env.DB_NAME}`)
